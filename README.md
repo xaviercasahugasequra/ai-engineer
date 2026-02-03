@@ -1,61 +1,23 @@
 # seQura AI Agent Challenge
 
-Welcome to seQura's AI Agent code challenge!
-
-This challenge is for candidates applying to the **Senior Backend Engineer – AI Agents** position. It reflects a simplified version of the types of problems we tackle daily at seQura.
-
-Our goal is to evaluate your pragmatism, precision, clarity, ownership, production-readiness, and thoughtful use of tools. A successful candidate is someone who can balance technical skills with strong communication and a product-focused mindset.
+Code challenge for the **Senior Backend Engineer – AI Agents** position. We evaluate pragmatism, clarity, ownership, and production-readiness.
 
 ---
 
-## Context
+## Context & Problem
 
-At seQura, we're a leading Buy Now Pay Later (BNPL) company that enables shoppers to purchase products at e-commerce stores and pay over time. We partner with thousands of online merchants across various categories.
+seQura is a Buy Now Pay Later (BNPL) company: shoppers buy at partner e-commerce stores and pay flexibly (Pay in 3, Pay in 6/12, Pay Later). Your task is to build an **AI-powered shopping assistant** that:
 
-As part of our AI-powered customer experience initiative, we're developing intelligent agents that help shoppers discover products at our partner merchants and resolve support queries about their existing orders.
+1. **Product Discovery** – Helps shoppers find products at seQura-enabled merchants (search, details, payment options).
+2. **Customer Support** – Helps with existing orders (status, payment schedule, delays, payment method updates, escalation).
 
-This challenge focuses on **building an AI agent system** that demonstrates production-ready orchestration, state management, and integration patterns.
-
----
-
-## Problem Statement
-
-Your task is to build an **AI-powered shopping assistant** for seQura that handles two main user intents:
-
-1. **Product Discovery** – Help shoppers find e-commerce products at merchants that accept seQura
-2. **Customer Support** – Assist shoppers with questions about their existing BNPL orders and payments
-
-The agent must intelligently route between these intents, maintain conversation context, and orchestrate calls to various backend services (simulated as tools).
+The agent must route between these intents, keep conversation context, and call backend services via the tools below (mocked implementations provided).
 
 ---
 
-## Scenario Context
+## Tools & Functional Scope
 
-seQura enables shoppers to buy products at partner e-commerce stores and pay flexibly:
-
-- **Pay in 3** – Split purchase into 3 interest-free payments
-- **Pay in 6/12** – Extended installment plans
-- **Pay Later** – Full payment deferred by 7 days
-
-Shoppers interact with the assistant to either:
-
-- **Discover products** – Find items they want to buy at seQura-enabled merchants
-- **Get support** – Manage their existing orders (payment status, schedules, issues)
-
----
-
-## Functional Requirements
-
-### Intent 1: Product Discovery
-
-The agent should help shoppers discover products at seQura partner merchants by:
-
-- Understanding what the shopper is looking for (category, features, price range)
-- Searching for products across seQura-enabled merchants
-- Providing product details, comparisons, and recommendations
-- Showing available payment options for products they're interested in
-
-**Available Tools for Product Discovery** (mocked implementations provided in `mocked_tools/`):
+### Product Discovery
 
 | Tool                    | Description                            | Input                                | Output                          |
 | ----------------------- | -------------------------------------- | ------------------------------------ | ------------------------------- |
@@ -64,16 +26,7 @@ The agent should help shoppers discover products at seQura partner merchants by:
 | `get_merchant_info`     | Gets merchant details and policies     | `merchant_id`                        | Merchant info + payment options |
 | `check_payment_options` | Shows available BNPL options           | `product_id`, `user_id?`             | Payment plans + eligibility     |
 
-### Intent 2: Customer Support
-
-The agent should assist users with existing orders by:
-
-- Retrieving order details and payment status
-- Explaining upcoming payments and due dates
-- Handling common issues (payment method updates, payment delays)
-- Escalating complex issues when necessary
-
-**Available Tools for Customer Support** (mocked implementations provided in `mocked_tools/`):
+### Customer Support
 
 | Tool                    | Description                 | Input                        | Output                   |
 | ----------------------- | --------------------------- | ---------------------------- | ------------------------ |
@@ -83,82 +36,26 @@ The agent should assist users with existing orders by:
 | `request_payment_delay` | Requests a payment delay    | `order_id`, `days`, `reason` | Approval status          |
 | `escalate_to_human`     | Creates support ticket      | `order_id`, `issue_summary`  | Ticket ID                |
 
----
-
-## Mocked Tools
-
-Mocked implementations of all tools are provided in Python under `mocked_tools/`. Use them so you can focus on agent orchestration and prompt design rather than building real integrations. You may extend or replace them if needed; the interface (names, inputs, outputs) should stay consistent.
-
-- **Product discovery:** `search_products`, `get_product_details`, `get_merchant_info`, `check_payment_options`
-- **Customer support:** `get_order_details`, `get_payment_schedule`, `update_payment_method`, `request_payment_delay`, `escalate_to_human`
-
-See `mocked_tools/README.md` for usage.
+Use the **mocked tools** in `mocked_tools/` (Python) so you can focus on the agent; see `mocked_tools/README.md` for usage. You may extend or replace them; keep tool names and signatures consistent.
 
 ---
 
 ## Technical Requirements
 
-### Core Requirements
-
-1. **Agent Orchestration**
-
-   - Implement a conversational agent that manages multi-turn dialogues
-   - Handle intent classification and routing between product discovery and support
-   - Maintain conversation state and context across turns
-   - Implement proper tool/function calling patterns
-
-2. **State Management**
-
-   - Track conversation history and extracted entities
-   - Handle context switching between intents gracefully
-   - Persist relevant user information across the conversation
-
-3. **Tool Integration**
-
-   - Use the **provided mocked tools** (see [Mocked Tools](#mocked-tools)) so the exercise stays focused on agent design
-   - Implement a clean abstraction for tool definitions and execution
-   - Handle tool failures gracefully with appropriate fallbacks
-   - Validate tool inputs and handle edge cases
-
-4. **Production Readiness**
-   - Write comprehensive tests (unit and integration)
-   - Implement proper error handling and logging
-   - Structure code for maintainability and extensibility
-   - Provide a **technical decision document** (e.g. ADR or dedicated section in README) explaining why you chose your solution, trade-offs, and alternatives considered
-
-### LLM Integration
-
-- Integrate with a **real LLM API** (OpenAI, Anthropic, etc.)
-- Implement clear prompt design for intent classification and tool calling (we're interested in how you structure and reason about prompts)
-- Handle API errors, rate limits, and timeouts
-
-**LLM access:** Use your own API key/tokens. We do not provide LLM accounts. If this is a blocker, mention it when submitting and we can discuss alternatives.
+- **Agent:** Multi-turn conversational agent; intent classification and routing; conversation state; tool/function calling.
+- **Tools:** Use the provided mocked tools; clean abstraction for definitions and execution; handle failures and validate inputs.
+- **LLM:** Integrate a **real LLM API** (OpenAI, Anthropic, etc.). We care about how you design prompts for intent and tool use. Handle errors, rate limits, timeouts. **Use your own API key;** we don’t provide one (mention if it’s a blocker).
+- **Deliverables:** Tests, error handling, logging, maintainable structure, and a **technical decision document** (ADR or README section) with your solution rationale and trade-offs.
 
 ---
 
 ## Design Questions (Required)
 
-In addition to the implementation, you must document your answers to these design questions in your README. **You do not need to implement the product catalog** – we want to understand your thinking and approach.
+Document your answers in the README. **No need to implement the catalog**—we want your reasoning.
 
-### Product Catalog Design
-
-1. **Data Modeling**
-
-   - How would you structure the product catalog to support multiple merchants?
-   - What attributes would you store for products, and how would you handle merchant-specific variations?
-   - How would you model categories and product relationships?
-
-2. **Search Implementation**
-
-   - How would you implement the `search_products` functionality to handle natural language queries like "laptop for video editing under €1,500"?
-   - What search technologies or approaches would you consider (e.g., full-text search, vector embeddings, hybrid)?
-   - How would you handle relevance ranking and filtering?
-
-3. **Data Ingestion**
-   - How would you keep the catalog synchronized with merchant inventories?
-   - What strategies would you use for handling catalog updates at scale (thousands of merchants, millions of products)?
-
-_These questions help us understand your system design thinking. Be concise but thorough – a few paragraphs per question is sufficient._
+1. **Data modeling** – How would you structure the product catalog for multiple merchants? Attributes, merchant-specific variations, categories and relationships?
+2. **Search** – How would you implement `search_products` for queries like "laptop for video editing under €1,500"? Technologies (full-text, vectors, hybrid), ranking, filtering?
+3. **Data ingestion** – How would you keep the catalog in sync with merchant inventories? Strategies for updates at scale (many merchants, many products)?
 
 ---
 
@@ -234,27 +131,10 @@ Is there anything else I can help you with?
 
 ## Deliverables
 
-1. **Source Code**
-
-   - Well-structured, clean, and documented Python code
-   - Clear separation of concerns (agent, tools, state, etc.)
-   - Use or integrate the provided mocked tools
-
-2. **Technical Decision Document**
-
-   - A short document (ADR or README section) describing why you chose your solution, trade-offs, and alternatives considered
-
-3. **Tests**
-
-   - Unit tests for core components
-   - Integration tests for conversation flows
-   - Focus on testing edge cases and error scenarios
-
-4. **README**
-   - Setup and running instructions
-   - Architecture overview and key decisions
-   - **Answers to the Design Questions** (Product Catalog section)
-   - Known limitations and potential improvements
+- **Code** – Python, clear structure (agent / tools / state), use the provided mocked tools.
+- **Technical decision document** – Why you chose your solution, trade-offs, alternatives (ADR or README section).
+- **Tests** – Unit and integration (including conversation flows and edge cases).
+- **README** – Setup and run instructions; architecture and key decisions; **answers to the Design Questions**; limitations and improvements.
 
 ---
 
@@ -266,7 +146,7 @@ Is there anything else I can help you with?
 | **Design Questions**     | 25%    | Thoughtful approach to catalog modeling, search, and data ingestion |
 | **Code Quality**         | 20%    | Clean code, SOLID principles, proper abstractions                   |
 | **Production Readiness** | 15%    | Error handling, logging, documentation, extensibility               |
-| **Testing**              | 15%    | Test coverage, meaningful tests, edge cases                         |
+| **Testing**              | 15%    | Test coverage, meaningful tests, edge cases                          |
 
 ### How We Evaluate Chat Responses
 
@@ -280,41 +160,13 @@ We assess the agent’s replies along these dimensions:
 
 ---
 
-## How to Approach the Challenge
+## How to Approach
 
-This section explains the mindset and practices we encourage you to adopt while solving the challenge. It's about how you approach the work, communicate your thought process, and align with our values.
-
-1. **Be pragmatic:** Build the **Best Simple System for Now**—a solution that solves the problem effectively while remaining adaptable and easy to iterate on. Avoid overengineering.
-
-2. **Communicate effectively:**
-
-   - Share your thought process, including:
-     - Decisions you made and why.
-     - Decisions you didn't take and your reasoning.
-   - Include your assumptions, trade-offs, and any areas left incomplete due to time constraints.
-
-3. **Demonstrate ownership:**
-
-   - Make decisions confidently and justify them.
-   - Ask any question to us (the hiring team) if something is unclear, ideally, as you would to stakeholders in a real-world scenario.
-
-4. **Design, test, develop, document:** Treat this solution as production-ready code. Commit your changes as if this were a real-world feature.
-
-   - We **prefer Python** for this challenge. Use the provided mocked tools so you can focus on agent orchestration, not backend integrations.
-   - Your **experience level will also be taken into consideration** during evaluation.
-   - We value clarity, maintainability, and problem-solving over the specific technology used.
-
-5. **AI usage and workflow (optional):**
-   If you typically use AI tools (like Copilot, Cursor, etc. for coding, or ChatGPT, Claude, Gemini, etc. for idea refinement and assistance) as part of your workflow, we are happy to see you use them in this challenge as well.
-
-   _Using AI won't give you extra points, and not using it won't count against you either._
-
-   However, if you do choose to use AI, we'd love to understand how you integrated it into your process. Specifically:
-
-   - Which tools you used.
-   - The prompts or instructions you provided (sharing a link to the conversation, when available).
-   - How you tailored the AI's outputs to your needs.
-   - Your reasoning behind using (or not using) AI for specific parts of the challenge.
+- **Pragmatic** – Best simple system for now; avoid overengineering.
+- **Communicate** – Share decisions (taken and not), assumptions, trade-offs, and what you’d do with more time.
+- **Ownership** – Decide and justify; ask us if anything is unclear.
+- **Python preferred;** use the provided mocked tools. We value clarity and problem-solving.
+- **AI tools (optional)** – You may use Copilot, Cursor, ChatGPT, etc. It won’t affect scoring. If you do, briefly describe how you used them and tailored the output.
 
 ---
 
@@ -326,34 +178,6 @@ This section explains the mindset and practices we encourage you to adopt while 
 
 ---
 
-## Submission Instructions
+## Submission
 
-When you're done, make sure that you:
-
-1. Created a **README** file explaining:
-
-   - How to set up and run your solution
-   - An explanation of your technical choices, trade-offs, and assumptions
-   - Answers to the design questions
-   - Areas you would improve given more time
-   - _(Optional)_ How you used AI tools, if applicable
-
-2. Included a **technical decision document** (or section) describing why you chose your solution and alternatives considered.
-
-3. Included all your code and the `.git` folder in a zip file to show your commit history.
-
-4. Send your submission to your hiring contact.
-
-**Time Expectation:** We recommend spending no more than **6 hours** on this challenge.
-
-_If you run out of time, document what you would have done differently or added in your README._
-
----
-
-## Questions?
-
-Please read the challenge carefully before starting. If you have any doubts or need extra info, don't hesitate to ask us before starting.
-
-If anything is unclear during the challenge, make reasonable assumptions and document them in your README. We value seeing how you approach ambiguity.
-
-Good luck! We're excited to see your solution.
+Zip your code **including the `.git` folder** and send to your hiring contact. **Time:** ~6 hours. If you run out of time, document next steps in the README. Questions? Ask us; if you assume something, document it.
