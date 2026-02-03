@@ -2,7 +2,7 @@
 
 PRODUCTS = [
     {
-        "id": "mbp-m3-mediamarkt",
+        "id": "mba-m3-mediamarkt",
         "name": "MacBook Air M3",
         "merchant_id": "mediamarkt",
         "category": "electronics",

@@ -21,8 +21,8 @@ from mocked_tools import (
 
 # Product discovery
 products = search_products("laptop", category="electronics", price_range={"max": 1500})
-details = get_product_details("mbp-m3-mediamarkt")
-options = check_payment_options("mbp-m3-mediamarkt")
+details = get_product_details("mba-m3-mediamarkt")
+options = check_payment_options("mba-m3-mediamarkt")
 
 # Customer support
 order = get_order_details(order_id="SQ-12345")

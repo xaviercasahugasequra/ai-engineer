@@ -1,6 +1,6 @@
 # seQura AI Agent Challenge
 
-Code challenge for the **Senior Backend Engineer – AI Agents** position. We evaluate pragmatism, clarity, ownership, and production-readiness.
+Code challenge for the **Senior Backend Engineer – AI Agents** position. We evaluate pragmatism, clarity, ownership, and production-readiness. **Time budget:** ~6 hours.
 
 ---
 
@@ -51,7 +51,7 @@ Use the **mocked tools** in `mocked_tools/` (Python) so you can focus on the age
 
 ## Design Questions (Required)
 
-Document your answers in the README. **No need to implement the catalog**—we want your reasoning.
+Document your answers in the README (see Deliverables). **No need to implement the catalog**—we want your reasoning only.
 
 1. **Data modeling** – How would you structure the product catalog for multiple merchants? Attributes, merchant-specific variations, categories and relationships?
 2. **Search** – How would you implement `search_products` for queries like "laptop for video editing under €1,500"? Technologies (full-text, vectors, hybrid), ranking, filtering?
@@ -80,8 +80,8 @@ Would you like more details on any of these?
 
 User: Tell me more about the MacBook
 
-[Agent calls get_product_details(product_id: "mbp-m3-mediamarkt")]
-[Agent calls check_payment_options(product_id: "mbp-m3-mediamarkt")]
+[Agent calls get_product_details(product_id: "mba-m3-mediamarkt")]
+[Agent calls check_payment_options(product_id: "mba-m3-mediamarkt")]
 
 Agent: **MacBook Air M3** at MediaMarkt
 - 15" Liquid Retina display
@@ -180,4 +180,4 @@ We assess the agent’s replies along these dimensions:
 
 ## Submission
 
-Zip your code **including the `.git` folder** and send to your hiring contact. **Time:** ~6 hours. If you run out of time, document next steps in the README. Questions? Ask us; if you assume something, document it.
+Zip your code **including the `.git` folder** and send to your hiring contact. If you run out of time, document next steps in the README. Questions? Ask us; if you assume something, document it.
